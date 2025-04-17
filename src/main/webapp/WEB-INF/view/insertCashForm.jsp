@@ -4,17 +4,17 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook/loginForm.jsp");
+	    response.sendRedirect("/cashbook2/loginForm.jsp");
 	    return;
 	}
 
@@ -102,7 +102,7 @@
 </style>
 <body>
 <h1>내역 추가</h1>
-	<form action="/cashbook/insertCashForm.jsp" method="post">
+	<form action="/cashbook2/insertCashForm.jsp" method="post">
 		<input type="hidden" name="cashDate" value="<%=cashDate%>">
 			항목
 		<select name="kind" class="form-select">
@@ -132,7 +132,7 @@
 	
 	<hr>
 	
-	<form method="post" action="/cashbook/insertCashAction.jsp">
+	<form method="post" action="/cashbook2/insertCashAction.jsp">
 		cashDate : <br>
 		<input type="text" name="cashDate" value="<%=cashDate%>" class="form-text" readonly><br>
 		category : 

@@ -2,8 +2,8 @@
 <%@ page import="dto.*" %>
 <div class="top-nav">
 <hr>
-	<a href="/cashbook/logout.jsp" class="btn btn-sm btn-outline-secondary">로그아웃</a>
-	<a href="/cashbook/updateAdminPwForm.jsp" class="btn btn-sm btn-outline-secondary">비밀번호변경</a>
+	<a href="/cashbook2/logout.jsp" class="btn btn-sm btn-outline-secondary">로그아웃</a>
+	<a href="/cashbook2/updateAdminPwForm.jsp" class="btn btn-sm btn-outline-secondary">비밀번호변경</a>
 <hr>
 </div>
 <%
@@ -12,7 +12,7 @@
 
 	if(loginAdmin == null){ //로그아웃 상태라면
 	//로그인 페이지로 리다이렉트
-		response.sendRedirect("/cashbook/loginForm.jsp");	
+		response.sendRedirect("/cashbook2/loginForm.jsp");	
 		return;
 	}
 %>
@@ -94,13 +94,13 @@
 	<h4 class="text-center mb-4 menu-title">MENU</h4>
 	<ul>
 		<div class="btn">
-			<a href="/cashbook/monthList.jsp" class="btn btn btn-outline-secondary">달력</a>
+			<a href="/cashbook2/monthList.jsp" class="btn btn btn-outline-secondary">달력</a>
 		</div>
 		<div class="btn">
-			<a href="/cashbook/categoryList.jsp" class="btn btn btn-outline-secondary">카테고리</a>
+			<a href="/cashbook2/categoryList.jsp" class="btn btn btn-outline-secondary">카테고리</a>
 		</div>
 		<div class="btn">
-			<a href="/cashbook/summaryList.jsp" class="btn btn btn-outline-secondary">통계</a>
+			<a href="/cashbook2/summaryList.jsp" class="btn btn btn-outline-secondary">통계</a>
 		</div>
 	</ul>
 </body>

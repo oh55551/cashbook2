@@ -25,5 +25,5 @@
 	CashDao cashDao = new CashDao();
 	int row = cashDao.updateCash(c, kind, title);
 	
-	response.sendRedirect("/cashbook/cashOne.jsp?cash_no=" + cashNo);
+	response.sendRedirect("/cashbook2/cashOne.jsp?cash_no=" + cashNo);
 %>

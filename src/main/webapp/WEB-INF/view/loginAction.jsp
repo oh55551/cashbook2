@@ -11,10 +11,10 @@
 	
 	if(admin!=null){
 		session.setAttribute("loginAdmin", admin);
-		response.sendRedirect("/cashbook/index.jsp");
+		response.sendRedirect("/cashbook2/index.jsp");
 	}else{
 		System.out.println("아이디 혹은 비밀번호가 일치하지않습니다."); 
-		response.sendRedirect("/cashbook/loginForm.jsp");
+		response.sendRedirect("/cashbook2/loginForm.jsp");
 	}
 	
 %>

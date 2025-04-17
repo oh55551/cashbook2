@@ -8,7 +8,7 @@ public class ReceitDao {
 	public Receit selectReceitByCashNo(int cashNo) throws Exception {
 	    Receit r = null;
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 	    String sql = "SELECT filename, createdate FROM receit WHERE cash_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
 	    stmt.setInt(1, cashNo);
@@ -27,7 +27,7 @@ public class ReceitDao {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		String sql = "delete from receit where cash_no = ?";
 		
 		stmt= conn.prepareStatement(sql); // 
@@ -43,7 +43,7 @@ public class ReceitDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		String sql = "select * from receit order by num desc limit ?, ?";
 		
 		stmt = conn.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class ReceitDao {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		String sql = "insert IGNORE into receit(cash_no, filename, createdate) values(?, ?, now())";
 		
 		stmt= conn.prepareStatement(sql); // 

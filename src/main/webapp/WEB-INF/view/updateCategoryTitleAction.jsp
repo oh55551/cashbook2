@@ -11,11 +11,11 @@
 	 int row = categoryDao.updateCategoryTitle(categoryNo, newTitle);
 	    if (row == 0) {
 	        // 중복된 title일 경우 다시 입력 폼으로
-			response.sendRedirect("/cashbook/updateCategoryTitleForm.jsp?categoryNo=" + categoryNo);
+			response.sendRedirect("/cashbook2/updateCategoryTitleForm.jsp?categoryNo=" + categoryNo);
 	    	return;
 	    } else {
 	        // 정상 등록된 경우
-	        response.sendRedirect("/cashbook/categoryList.jsp");
+	        response.sendRedirect("/cashbook2/categoryList.jsp");
 	    }
 %>
 

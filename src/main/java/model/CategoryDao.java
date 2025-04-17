@@ -16,7 +16,7 @@ public class CategoryDao {
 	    ArrayList<Category> list = new ArrayList<>();
 	    
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 	    String sql = "SELECT category_no, title FROM category where kind=?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
@@ -36,7 +36,7 @@ public class CategoryDao {
 	//updateTitle
 	public int updateCategoryTitle(int categoryNo, String newTitle) throws Exception {
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 		
 	    //같은값 못넣게하기
 		String sql2 = "SELECT COUNT(*) FROM category WHERE title = ?";
@@ -63,7 +63,7 @@ public class CategoryDao {
 	public int deleteCategory(int categoryNo) throws ClassNotFoundException, SQLException {
 	    int row = 0;
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 	    String sql = "DELETE FROM category WHERE category_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
 	    stmt.setInt(1, categoryNo);
@@ -76,7 +76,7 @@ public class CategoryDao {
 	public int insertCategory(Category category) throws ClassNotFoundException, SQLException{
 		int pk=0;
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		PreparedStatement stmt = null;
 		
 		//같은값 못넣게하기
@@ -113,7 +113,7 @@ public class CategoryDao {
 	public ArrayList<HashMap<String,Object>> selectCategory() throws ClassNotFoundException, SQLException{
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		PreparedStatement stmt = null;
 		String sql = "select * FROM category ORDER BY category_no DESC";
 		stmt=conn.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class CategoryDao {
 	    ArrayList<Category> list = new ArrayList<>();
 	    
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 	    String sql = "SELECT category_no, kind, title, createdate FROM category ORDER BY category_no DESC LIMIT ?, ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);

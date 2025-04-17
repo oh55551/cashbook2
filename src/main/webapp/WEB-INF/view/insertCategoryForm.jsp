@@ -1,25 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.*" %>
-<%@ page import="dto.*" %>
+<%@ page import = "dto.*" %>
+<%@ page import = "model.*" %>
+<%@ page import = "java.util.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
-<%
-	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
-	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook/loginForm.jsp");
-	    return;
-	}
-    int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
-    CategoryDao categoryDao = new CategoryDao();
-   
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,18 +82,25 @@
     }
 </style>
 <body>
-	<form action="updateCategoryTitleAction.jsp?categoryNo=<%=categoryNo %>" method="post">
+	<h1>카테고리 추가</h1>
+	<form action="insertCategoryAction.jsp">
 	<table class="table table-bordered table-hover">
 		<tr>
-			<td>categoryNo</td>
-			<td><%=categoryNo %></td>
+			<th>Kind</th>
+			<td>
+			 <select name="kind" class="form-select">
+				<option value="수입">수입</option>
+                <option value="지출">지출</option>
+            </td>
 		</tr>
 		<tr>
-			<td>새로운 제목</td>
-			<td><input type="text" name="newTitle" class="form-control"></td>
+			<th>Title</th>
+			<td>
+				<input type="text" name="title" class="form-control">
+            </td>
 		</tr>
 	</table>
-	<button type="submit" class="btn btn-sm btn-primary">수정하기</button>
+	<button type="submit" class="btn btn-sm btn-primary">추가하기</button>
 	</form>
 </body>
 </html>

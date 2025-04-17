@@ -5,7 +5,7 @@
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook/loginForm.jsp");
+	    response.sendRedirect("/cashbook2/loginForm.jsp");
 	    return;
 	}
 	String adminId = request.getParameter("adminId");
@@ -21,10 +21,10 @@
 	
 	if(row==1){
 		System.out.println("비밀번호 변경완료");
-		response.sendRedirect("/cashbook/loginForm.jsp");
+		response.sendRedirect("/cashbook2/loginForm.jsp");
 	}else{
 		System.out.println("회원정보를 확인하세요");	
-		response.sendRedirect("/cashbook/updateAdminPwForm.jsp");
+		response.sendRedirect("/cashbook2/updateAdminPwForm.jsp");
 		return;
 	}
 %>

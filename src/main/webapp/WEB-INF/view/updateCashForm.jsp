@@ -4,26 +4,33 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-		  response.sendRedirect("/cashbook/loginForm.jsp");
+		  response.sendRedirect("/cashbook2/loginForm.jsp");
 		  return;
 	}
 	
+	
+	String cashDate = request.getParameter("cashDate");
 	int cashNo = Integer.parseInt(request.getParameter("cash_no"));
 	CashDao cashDao = new CashDao();
 	HashMap<String, Object> m = cashDao.cashOneByNo(cashNo);
-	ReceitDao receitDao = new ReceitDao();
-	Receit receit = receitDao.selectReceitByCashNo(cashNo);
-	
+
+	String kind = request.getParameter("kind");
+	ArrayList<Category> list = null;
+	if(kind!=null){ // insertCashForm.jsp 에서 kind가 선택 후 재요청
+		// DB : 선택된 kind의 title 목록
+		CategoryDao categoryDao = new CategoryDao();
+		list = categoryDao.selectCategoryListByKind(kind);
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -33,6 +40,7 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 <style>
     body {
         background-color: #f0f8ff; /* 연한 하늘색 배경 */
@@ -94,34 +102,57 @@
     }
 </style>
 <body>
-	<table class="table table-bordered table-hover">
+<form method="post" action="/cashbook2/updateCashAction.jsp?cashDate=<%=cashDate%>">
+<table class="table table-bordered table-hover">
+	<input type="hidden" name="cashDate" value="<%= cashDate %>">
 		<tr>
 			<th>구분</th>
-			<td><%= m.get("kind") %></td>
+			<td>
+				<select name="kind" class="form-select" onchange="this.form.action='/cashbook2/updateCashForm.jsp'; this.form.submit();">
+					<option value="수입" <%= "수입".equals(kind) ? "selected" : "" %>>수입</option>
+					<option value="지출" <%= "지출".equals(kind) ? "selected" : "" %>>지출</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<th>캐시번호</th>
-			<td><%= m.get("cash_no") %></td>
+			<td>
+				<input type="hidden" name="cash_no" value="<%= m.get("cash_no") %>">
+				<%= m.get("cash_no") %>
+			</td>
 		</tr>
 		<tr>
 			<th>카테고리번호</th>
-			<td><%= m.get("category_no") %></td>
+			<td><input type="text" name="category_no" value="<%= m.get("category_no") %>" class="form-control" readonly></td>
 		</tr>
 		<tr>
 			<th>분류</th>
-			<td><%= m.get("title") %></td>
+			<td>
+				<select name="title" class="form-select">
+				<%
+					if (list != null) {
+						for (Category c : list) {
+							String selected = c.getTitle().equals(m.get("title")) ? "selected" : "";
+				%>
+							<option value="<%= c.getTitle() %>" <%= selected %>><%= c.getTitle() %></option>
+				<%
+						}
+					}
+				%>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<th>총액</th>
-			<td><%= m.get("amount") %></td>
+			<td><input type="number" name="amount" value="<%= m.get("amount") %>" class="form-control"></td>
 		</tr>
 		<tr>
 			<th>메모</th>
-			<td><%= m.get("memo") %></td>
+			<td><input type="text" name="memo" value="<%= m.get("memo") %>" class="form-control"></td>
 		</tr>
 		<tr>
 			<th>색상</th>
-			<td><%= m.get("color") %></td>
+			<td><input type="color" name="color" value="<%= m.get("color") %>" class="form-control form-control-color"></td>
 		</tr>
 		<tr>
 			<th>등록일</th>
@@ -132,32 +163,11 @@
 			<td><%= m.get("updatedate") %></td>
 		</tr>
 		<tr>
-			<th>영수증</th>
-			<td><% 
-				if (receit != null) { 
-			%>
-				<img src="<%= request.getContextPath() + "/upload/" + receit.getFilename() %>" 
-				     style="max-width: 200px; border: 1px solid #ddd; padding: 5px;">
-			<% 
-				} else { 
-			%>
-				<p>영수증 이미지가 등록되지 않았습니다.</p>
-			<% 
-				} 
-			%>
+			<td colspan="2" class="text-center">
 			</td>
 		</tr>
 	</table>
-	<form action="/cashbook/insertReceitForm.jsp">
-	<input type="hidden" name="cash_no" value="<%= cashNo %>">
-	<button type="submit" class="btn btn-sm btn-primary">영수증 등록</button>
-	</form>
-	<form action="/cashbook/deleteReceit.jsp">
-	<input type="hidden" name="cash_no" value="<%= cashNo %>">
-	<button type="submit" class="btn btn-sm btn-primary">영수증 삭제</button>
-	</form>
-	
-
-	
+	<button type="submit" class="btn btn-sm btn-primary">수정하기</button>
+</form>
 </body>
 </html>

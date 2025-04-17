@@ -4,16 +4,16 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook/loginForm.jsp");
+	    response.sendRedirect("/cashbook2/loginForm.jsp");
 	    return;
 	}
 	
@@ -119,8 +119,8 @@
           		<%=c.getTitle()%>
            	</td>	
             <td><%= c.getCreatedate() %></td>
-            <td> <a href="/cashbook/updateCategoryTitleForm.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">수정하기</td>
-            <td> <a href="/cashbook/deleteCategory.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">삭제하기</td>
+            <td> <a href="/cashbook2/updateCategoryTitleForm.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">수정하기</td>
+            <td> <a href="/cashbook2/deleteCategory.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">삭제하기</td>
         </tr>
         <%
             }

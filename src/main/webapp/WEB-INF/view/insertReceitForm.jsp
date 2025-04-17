@@ -5,18 +5,18 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
 
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-		  response.sendRedirect("/cashbook/loginForm.jsp");
+		  response.sendRedirect("/cashbook2/loginForm.jsp");
 		  return;
 	}
 %>
@@ -98,7 +98,7 @@
     <%		
     	}
     %>
-    <form action="/cashbook/insertReceitAction.jsp" method="post" enctype="multipart/form-data">
+    <form action="/cashbook2/insertReceitAction.jsp" method="post" enctype="multipart/form-data">
     	<input type="hidden" name="cash_no" value="<%= cashNo %>">
 		<div>이미지 : <input type="file" name="imageFile"></div>
 		 <input type="hidden" name="createdate">

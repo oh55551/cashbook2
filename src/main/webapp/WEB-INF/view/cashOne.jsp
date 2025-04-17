@@ -4,11 +4,11 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
+    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
+    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
+    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
@@ -18,32 +18,21 @@
 		  return;
 	}
 	
-	//날짜받아오기
-	String year = request.getParameter("year");
-	String month = request.getParameter("month");
-	String date = request.getParameter("day");
-	
-	//한자리수 월,일을 두자리수로만들어주기
-	if (month.length() == 1){
-		month = "0" + month;
-	}
-	if (date.length() == 1){
-		date = "0" + date;
-	}
-	String cashDate = year + "-" + month + "-" + date;
-	
-	//DB불러오기
+	int cashNo = Integer.parseInt(request.getParameter("cash_no"));
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByDate(cashDate);
+	HashMap<String, Object> m = cashDao.cashOneByNo(cashNo);
+	ReceitDao receitDao = new ReceitDao();
+	Receit receit = receitDao.selectReceitByCashNo(cashNo);
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title></title>
+</head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
 <style>
     body {
         background-color: #f0f8ff; /* 연한 하늘색 배경 */
@@ -108,33 +97,67 @@
 	<table class="table table-bordered table-hover">
 		<tr>
 			<th>구분</th>
-			<th>분류</th>
-			<th>금액</th>
-			<th>작성일시</th>
-			<th>영수증 유무</th>			
-			<th>상세보기</th>
-			<th>수정</th>
-			<th>삭제</th>
+			<td><%= m.get("kind") %></td>
 		</tr>
-	<%
-		for (HashMap<String, Object> c : list) {
-			int cashNo = (Integer) c.get("cash_no");
-	        boolean hasReceit = cashDao.hasReceit(cashNo); 
-	%>
 		<tr>
-			<td><%=c.get("kind") %></td>
-			<td><%=c.get("title") %></td>
-			<td><%=c.get("amount") %> 원</td>
-			<td><%=c.get("createdate") %></td>
-			<td><%= hasReceit ? "✅" : "❌" %></td>
-			<td><a href="/cashbook/cashOne.jsp?cash_no=<%=c.get("cash_no")%>">상세보기</a></td>
-			<td><a href="/cashbook/updateCashForm.jsp?cash_no=<%=c.get("cash_no")%>&cashDate=<%=cashDate%>">수정</td>
-			<td><a href="/cashbook/deleteCash.jsp?cashDate=<%=cashDate%>&cash_no=<%=c.get("cash_no")%>">삭제</a></td>
+			<th>캐시번호</th>
+			<td><%= m.get("cash_no") %></td>
 		</tr>
-	<%
-		}
-	%>
+		<tr>
+			<th>카테고리번호</th>
+			<td><%= m.get("category_no") %></td>
+		</tr>
+		<tr>
+			<th>분류</th>
+			<td><%= m.get("title") %></td>
+		</tr>
+		<tr>
+			<th>총액</th>
+			<td><%= m.get("amount") %></td>
+		</tr>
+		<tr>
+			<th>메모</th>
+			<td><%= m.get("memo") %></td>
+		</tr>
+		<tr>
+			<th>색상</th>
+			<td><%= m.get("color") %></td>
+		</tr>
+		<tr>
+			<th>등록일</th>
+			<td><%= m.get("createdate") %></td>
+		</tr>
+		<tr>
+			<th>업데이트</th>
+			<td><%= m.get("updatedate") %></td>
+		</tr>
+		<tr>
+			<th>영수증</th>
+			<td><% 
+				if (receit != null) { 
+			%>
+				<img src="<%= request.getContextPath() + "/upload/" + receit.getFilename() %>" 
+				     style="max-width: 200px; border: 1px solid #ddd; padding: 5px;">
+			<% 
+				} else { 
+			%>
+				<p>영수증 이미지가 등록되지 않았습니다.</p>
+			<% 
+				} 
+			%>
+			</td>
+		</tr>
 	</table>
-	<a href="/cashbook/insertCashForm.jsp?cashDate=<%=cashDate %>" class="btn btn-sm btn-primary">내역 추가</a>
+	<form action="/cashbook2/insertReceitForm.jsp">
+	<input type="hidden" name="cash_no" value="<%= cashNo %>">
+	<button type="submit" class="btn btn-sm btn-primary">영수증 등록</button>
+	</form>
+	<form action="/cashbook2/deleteReceit.jsp">
+	<input type="hidden" name="cash_no" value="<%= cashNo %>">
+	<button type="submit" class="btn btn-sm btn-primary">영수증 삭제</button>
+	</form>
+	
+
+	
 </body>
 </html>

@@ -4,22 +4,30 @@
 <%@ page import = "java.util.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
+    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
     <hr>
 </div>
+<%
+	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
+	if (loginAdmin == null) {
+	    response.sendRedirect("/cashbook2/loginForm.jsp");
+	    return;
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title></title>
+	<title>pollList</title>
+	
 	<!-- Latest compiled and minified CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
 	<!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <style>
     body {
@@ -82,25 +90,29 @@
     }
 </style>
 <body>
-	<h1>카테고리 추가</h1>
-	<form action="insertCategoryAction.jsp">
-	<table class="table table-bordered table-hover">
-		<tr>
-			<th>Kind</th>
-			<td>
-			 <select name="kind" class="form-select">
-				<option value="수입">수입</option>
-                <option value="지출">지출</option>
-            </td>
-		</tr>
-		<tr>
-			<th>Title</th>
-			<td>
-				<input type="text" name="title" class="form-control">
-            </td>
-		</tr>
-	</table>
-	<button type="submit" class="btn btn-sm btn-primary">추가하기</button>
-	</form>
+<form action="updateAdminPwAction.jsp" method="post">
+	<h1>updatePw</h1>
+		<table class="table table-bordered table-hover">
+			<tr>
+				<td>adminId</td>
+				<td>
+					<input type="text" name="adminId">
+				</td>
+			</tr>
+			<tr>
+				<td>현재 비밀번호</td>
+				<td>
+					<input type="password" name="currentPw">
+				</td>
+			</tr>
+			<tr>
+				<td>변경할 비밀번호</td>
+				<td>
+					<input type="password" name="newPw">
+				</td>
+			</tr>
+		</table>
+		<button type="submit" class="btn btn-sm btn-primary">변경</button>
+</form>
 </body>
 </html>

@@ -13,6 +13,6 @@
 	ReceitDao receitDao = new ReceitDao();
 	receitDao.deleteImage(cash_no);
 	
-	response.sendRedirect("/cashbook/cashOne.jsp?cash_no=" + cash_no);
+	response.sendRedirect("/cashbook2/cashOne.jsp?cash_no=" + cash_no);
 
 %>

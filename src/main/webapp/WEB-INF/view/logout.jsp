@@ -2,5 +2,5 @@
 <%
     session.invalidate();
 
-    response.sendRedirect("/cashbook/loginForm.jsp");
+    response.sendRedirect("/cashbook2/loginForm.jsp");
 %>

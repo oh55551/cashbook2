@@ -24,7 +24,7 @@
 	String ext = originalName.substring(dotLastPos);
 	
 	if(!ext.equals(".png")){
-		response.sendRedirect("/cashbook/insertreceitForm.jsp?msg=ErrorNotPng");
+		response.sendRedirect("/cashbook2/insertreceitForm.jsp?msg=ErrorNotPng");
 		return;
 	}
 	
@@ -53,5 +53,5 @@
 	// 4) db의 저장
 	ReceitDao receitDao = new ReceitDao();
 	receitDao.insertImage(r);
-	response.sendRedirect("/cashbook/cashOne.jsp?cash_no=" + cashNo);
+	response.sendRedirect("/cashbook2/cashOne.jsp?cash_no=" + cashNo);
 %>

@@ -7,7 +7,7 @@ import dto.*;
 public class CashDao {
 	public boolean hasReceit(int cashNo) throws Exception {
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 	    String sql = "SELECT COUNT(*) FROM receit WHERE cash_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class CashDao {
 	public ArrayList<HashMap<String, Object>> cashAmountBySelect(int year, int month) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 		String sql = "SELECT kind, COUNT(*) as cnt , SUM(amount) as sumAmount "
 				+ "	 FROM category ct INNER JOIN cash cs "
@@ -55,7 +55,7 @@ public class CashDao {
 	public ArrayList<HashMap<String, Object>> cashAmountByMonth(int month) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 		String sql = "SELECT month(cash_date), kind, COUNT(*) as cnt , SUM(amount) as sumAmount "
 				+ "	 FROM category ct INNER JOIN cash cs "
@@ -83,7 +83,7 @@ public class CashDao {
 	public ArrayList<HashMap<String, Object>> cashAmountByYear(int year) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 		String sql = "SELECT year(cash_date), kind, COUNT(*) as cnt , SUM(amount) as sumAmount "
 				+ "	 FROM category ct INNER JOIN cash cs "
@@ -110,7 +110,7 @@ public class CashDao {
 	public ArrayList<HashMap<String, Object>> cashAmount() throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 		String sql = "SELECT kind, COUNT(*) AS cnt, SUM(amount) AS sumAmount " +
 		             "FROM category ct INNER JOIN cash cs ON ct.category_no = cs.category_no " +
@@ -133,7 +133,7 @@ public class CashDao {
 	public HashMap<String, Object> cashOneByNo(int cashNo) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 		String sql = "SELECT ct.kind, ct.title, c.amount, c.memo, c.createdate, c.color, c.updatedate, c.category_no, c.cash_no " +
                 "FROM cash c " +
                 "INNER JOIN category ct ON c.category_no = ct.category_no " +
@@ -157,7 +157,7 @@ public class CashDao {
 	
 	public int updateCash(Cash c, String kind, String title) throws Exception{
 		Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 	    String sql = "update cash set updatedate = now(), category_no = ?, amount = ?, memo = ?, color = ? where cash_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
 	    stmt.setInt(1, c.getCategory_no());
@@ -181,7 +181,7 @@ public class CashDao {
 	public int deleteCash(int cash_no) throws Exception{
 		int row = 0;
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 	    String sql = "DELETE FROM cash WHERE cash_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
 	    stmt.setInt(1, cash_no);
@@ -194,7 +194,7 @@ public class CashDao {
 	    HashMap<String, Object> map = new HashMap<>();
 
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 	    // 1. cash insert
 	    String insertSql = "INSERT INTO cash (category_no, cash_date, amount, memo, color) VALUES (?, ?, ?, ?, ?)";
@@ -238,7 +238,7 @@ public class CashDao {
 	public ArrayList<HashMap<String, Object>> selectCashListByDate(String date) throws Exception {
 	    ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "java1234");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2", "root", "java1234");
 
 	    String sql = "SELECT ct.kind, ct.title, c.amount, c.createdate, c.cash_no " +
 	                 "FROM cash c " +
@@ -271,7 +271,7 @@ public class CashDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		String sql = "SELECT "
 				+ "c.cash_no, "
 				+ "c.category_no, "
@@ -313,7 +313,7 @@ public class CashDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM cash where cash_no=?";
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook","root","java1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook2","root","java1234");
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, cash_no);
 		rs = stmt.executeQuery();

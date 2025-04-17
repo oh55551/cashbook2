@@ -6,5 +6,5 @@
 	int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
     CategoryDao categoryDao = new CategoryDao();
     categoryDao.deleteCategory(categoryNo);
-    response.sendRedirect("/cashbook/categoryList.jsp");
+    response.sendRedirect("/cashbook2/categoryList.jsp");
 %>

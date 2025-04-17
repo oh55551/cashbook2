@@ -18,6 +18,6 @@
 	int row = cashDao.deleteCash(cash_no);
 	
 	if(row==1){
-		response.sendRedirect("/cashbook/dateList.jsp?year=" + year + "&month=" + (month) + "&day=" + day);
+		response.sendRedirect("/cashbook2/dateList.jsp?year=" + year + "&month=" + (month) + "&day=" + day);
 	}
 %>

@@ -6,7 +6,7 @@
 <%
 	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
 	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook/loginForm.jsp");
+	    response.sendRedirect("/cashbook2/loginForm.jsp");
 	    return;
 	}
     // 폼에서 넘어온 값 받기
@@ -33,10 +33,10 @@
     int result = categoryDao.insertCategory(category); 
     if (result == 0) {
         // 중복된 title일 경우 다시 입력 폼으로
-    	response.sendRedirect("/cashbook/insertCategoryForm.jsp");
+    	response.sendRedirect("/cashbook2/insertCategoryForm.jsp");
     	return;
     } else {
         // 정상 등록된 경우
-        response.sendRedirect("/cashbook/categoryList.jsp");
+        response.sendRedirect("/cashbook2/categoryList.jsp");
     }
 %>

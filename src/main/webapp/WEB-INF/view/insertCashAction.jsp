@@ -21,5 +21,5 @@
 	    CashDao cashDao = new CashDao();
 	    int row = cashDao.insertCash(cash);
 
-	    response.sendRedirect("/cashbook/monthList.jsp");
+	    response.sendRedirect("/cashbook2/monthList.jsp");
 %>
