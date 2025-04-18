@@ -144,7 +144,7 @@ public class CategoryDao {
 
 	    ResultSet rs = stmt.executeQuery();
 	    while (rs.next()) {
-	        Category c = new Category();
+	        Category c = new Category();	
 	        c.setCategory_no(rs.getInt("category_no"));
 	        c.setKind(rs.getString("kind"));
 	        c.setTitle(rs.getString("title"));

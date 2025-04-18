@@ -2,20 +2,10 @@
 <%@ page import="dto.*" %>
 <div class="top-nav">
 <hr>
-	<a href="/cashbook2/logout.jsp" class="btn btn-sm btn-outline-secondary">로그아웃</a>
-	<a href="/cashbook2/updateAdminPwForm.jsp" class="btn btn-sm btn-outline-secondary">비밀번호변경</a>
+	<a href="<%=request.getContextPath()%>/LogoutController" class="btn btn-sm btn-outline-secondary">로그아웃</a>
+	<a href="<%=request.getContextPath()%>/UpdatePwController" class="btn btn-sm btn-outline-secondary">비밀번호변경</a>
 <hr>
 </div>
-<%
-	//로그인 되었는지 아닌지
-	Admin loginAdmin = (Admin)(session.getAttribute("loginAdmin"));
-
-	if(loginAdmin == null){ //로그아웃 상태라면
-	//로그인 페이지로 리다이렉트
-		response.sendRedirect("/cashbook2/loginForm.jsp");	
-		return;
-	}
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,18 +80,13 @@
 </style>
 </head>
 <body>
-
 	<h4 class="text-center mb-4 menu-title">MENU</h4>
 	<ul>
-		<div class="btn">
-			<a href="/cashbook2/monthList.jsp" class="btn btn btn-outline-secondary">달력</a>
-		</div>
-		<div class="btn">
-			<a href="/cashbook2/categoryList.jsp" class="btn btn btn-outline-secondary">카테고리</a>
-		</div>
-		<div class="btn">
-			<a href="/cashbook2/summaryList.jsp" class="btn btn btn-outline-secondary">통계</a>
-		</div>
+<div class="d-flex flex-column align-items-center">
+	<a href="<%=request.getContextPath()%>/MonthListController" class="btn btn-outline-secondary mb-2">달력</a>
+	<a href="<%=request.getContextPath()%>/CategoryListController" class="btn btn-outline-secondary mb-2">카테고리</a>
+	<a href="<%=request.getContextPath()%>/SummaryListController" class="btn btn-outline-secondary mb-2">통계</a>
+</div>
 	</ul>
 </body>
 </html>

@@ -4,29 +4,15 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="<%=request.getContextPath()%>/IndexController" class="btn btn-sm">홈화면으로</a>
+  	<a href="<%=request.getContextPath()%>/LogoutController" class="btn btn-sm btn-outline-secondary">로그아웃</a>
+    <a href="<%=request.getContextPath()%>/MonthListController" class="btn btn-sm">달력</a>
+    <a href="<%=request.getContextPath()%>/SummaryListController" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
-	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
-	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook2/loginForm.jsp");
-	    return;
-	}
-	
-	int currentPage=1;
-	if(request.getParameter("currentPage") != null){
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
-	
-	CategoryDao categoryDao = new CategoryDao();
-	Paging p = new Paging();
-	p.setCurrentPage(currentPage);
-	p.setRowPerPage(10);
-	ArrayList<Category> list = categoryDao.selectCategoryList(p);
+	ArrayList<Category> list = (ArrayList<Category>) request.getAttribute("list");
+	Paging paging = (Paging) request.getAttribute("paging");
 %>
 <!DOCTYPE html>
 <html>
@@ -99,7 +85,7 @@
     }
 </style>
 <body>
-<form action="insertCategoryForm.jsp" method="post">
+<form action="InsertCategoryFormController" method="post">
 <table class="table table-bordered table-hover">
         <tr>
             <th>No</th>
@@ -119,8 +105,8 @@
           		<%=c.getTitle()%>
            	</td>	
             <td><%= c.getCreatedate() %></td>
-            <td> <a href="/cashbook2/updateCategoryTitleForm.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">수정하기</td>
-            <td> <a href="/cashbook2/deleteCategory.jsp?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">삭제하기</td>
+            <td> <a href="<%=request.getContextPath()%>/UpdateCategoryTitleFormController?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">수정하기</td>
+            <td> <a href="<%=request.getContextPath()%>/DeleteCategoryController?categoryNo=<%=c.getCategory_no()%>" class="btn btn-sm btn-outline-secondary">삭제하기</td>
         </tr>
         <%
             }

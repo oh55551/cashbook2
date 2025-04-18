@@ -2,19 +2,7 @@
 <%@ page import = "dto.*" %>
 <%@ page import = "model.*" %>
 <%@ page import = "java.util.*" %>
-<div class="top-nav">
-    <hr>
-    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <hr>
 </div>
-<%
-	Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
-	if (loginAdmin == null) {
-	    response.sendRedirect("/cashbook2/loginForm.jsp");
-	    return;
-	}
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +78,7 @@
     }
 </style>
 <body>
-<form action="updateAdminPwAction.jsp" method="post">
+<form action="<%=request.getContextPath()%>/UpdatePwController" method="post">
 	<h1>updatePw</h1>
 		<table class="table table-bordered table-hover">
 			<tr>

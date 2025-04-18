@@ -77,7 +77,7 @@
     }
 </style>
 <body>
-<form action="loginAction.jsp" method="post">
+<form action="LoginActionController" method="post">
 	<h1>LOGIN</h1>
 		<table class="table table-bordered table-hover">
 			<tr>

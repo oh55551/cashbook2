@@ -4,11 +4,10 @@
 <%@ page import="model.*" %>
 <div class="top-nav">
     <hr>
-    <a href="/cashbook2/index.jsp" class="btn btn-sm">홈화면으로</a>
-    <a href="/cashbook2/logout.jsp" class="btn btn-sm">로그아웃</a>
-    <a href="/cashbook2/categoryList.jsp" class="btn btn-sm">카테고리</a>
-    <a href="/cashbook2/monthList.jsp" class="btn btn-sm">달력</a>
-    <a href="/cashbook2/summaryList.jsp" class="btn btn-sm">통계</a>
+    <a href="<%=request.getContextPath()%>/IndexController" class="btn btn-sm">홈화면으로</a>
+  	<a href="<%=request.getContextPath()%>/LogoutController" class="btn btn-sm btn-outline-secondary">로그아웃</a>
+    <a href="<%=request.getContextPath()%>/MonthListController" class="btn btn-sm">달력</a>
+    <a href="<%=request.getContextPath()%>/CategoryListController" class="btn btn-sm">통계</a>
     <hr>
 </div>
 <%
